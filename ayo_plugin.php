@@ -140,12 +140,62 @@ class BFIGitHubPluginUpdater {
     // Get information regarding our plugin from WordPress
     private function initPluginData() {
         // code here
+        $this->slug = plugin_basename( $this->pluginFile );
+$this->pluginData = get_plugin_data( $this->pluginFile );
     }
 
     // Get information regarding our plugin from GitHub
     private function getRepoReleaseInfo() {
         // code here
+        // Only do this once
+if ( ! empty( $this->githubAPIResult ) ) {
+    return;
+}
+// Query the GitHub API
+$url = "https://api.github.com/repos/{$this->username}/{$this->repo}/releases";
+
+// We need the access token for private repos
+if ( ! empty( $this->accessToken ) ) {
+    $url = add_query_arg( array( "access_token" => $this->accessToken ), $url );
+}
+
+// Get the results
+$this->githubAPIResult = wp_remote_retrieve_body( wp_remote_get( $url ) );
+if ( ! empty( $this->githubAPIResult ) ) {
+    $this->githubAPIResult = @json_decode( $this->githubAPIResult );
+}
+// Use only the latest release
+if ( is_array( $this->githubAPIResult ) ) {
+    $this->githubAPIResult = $this->githubAPIResult[0];
+}
+// If we have checked the plugin data before, don't re-check
+if ( empty( $transient->checked ) ) {
+    return $transient;
+}
+// Get plugin & GitHub release information
+$this->initPluginData();
+$this->getRepoReleaseInfo();
+// Check the versions if we need to do an update
+$doUpdate = version_compare( $this->githubAPIResult->tag_name, $transient->checked[$this->slug] );
+// Update the transient to include our updated plugin data
+if ( $doUpdate == 1 ) {
+    $package = $this->githubAPIResult->zipball_url;
+ 
+    // Include the access token for private GitHub repos
+    if ( !empty( $this->accessToken ) ) {
+        $package = add_query_arg( array( "access_token" => $this->accessToken ), $package );
     }
+
+    $obj = new stdClass();
+    $obj->slug = $this->slug;
+    $obj->new_version = $this->githubAPIResult->tag_name;
+    $obj->url = $this->pluginData["PluginURI"];
+    $obj->package = $package;
+    $transient->response[$this->slug] = $obj;
+}
+
+return $transient;
+    }//----
 
     // Push in plugin version information to get the update notification
     public function setTransitent( $transient ) {
