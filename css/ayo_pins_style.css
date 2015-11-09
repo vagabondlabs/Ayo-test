@@ -1,0 +1,83 @@
+/*
+ */
+ #sortable {
+   list-style-type: none;
+   margin: 0;
+   padding: 0;
+   width: 100%;
+
+ }
+
+ #sortable li {
+    margin: 10px 10px 10px 10px;
+    padding: 0;
+    float: left;
+    width: 163.8px;
+    height: 100%;
+    font-size: 14px;
+    text-align: left;
+    background-color: #2196F3;
+    border: 0;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.06), 0 2px 10px 0 rgba(0, 0, 0, 0.02);
+    transition-duration: 300ms;
+ }
+
+ #sortable li:hover {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.20), 0 2px 10px 0 rgba(0, 0, 0, 0.16);
+}
+
+ #sortable  .ui-state-highlight {
+    height: 100%;
+    width: 158px;
+
+  }
+
+div.btn_pin_edit {
+  background-color: #2196F3;
+  color:white;
+  width: 100%;
+  padding-top: 6px;
+  text-align: center;
+}
+
+div.btn_pin_view {
+  background-color: #2196F3;
+  color:red;
+  width: 100%;
+  padding-top: 6px;
+  text-align: center;
+}
+
+div.btn_pin_view:hover {
+  background-color: #1D84D7;
+}
+
+div.btn_pin_edit:hover {
+  background-color: #1D84D7;
+}
+
+div.btn_pin_status {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 12px;
+  font-weight: 900;
+  padding-left: 8px;
+  background: #2196F3;
+
+}
+div.btn_pin_title {
+  color:blue;
+  padding-left: 8px;
+  padding-right: 8px;
+  color: #fff;
+  margin-top: -4px;
+  margin-bottom: 0px;
+  padding-bottom: 20px;
+  height: 30px;
+  word-wrap: break-word;
+  line-height: normal;
+  background: #2196F3;
+
+}
+div.btn_pin_all{
+  display: flex;
+}

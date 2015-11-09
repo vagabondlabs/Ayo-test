@@ -1,0 +1,21 @@
+.folded #adminmenu, .folded #adminmenu li.menu-top, .folded #adminmenuback, .folded #adminmenuwrap  {
+  margin-left: -35px !important;
+  background-color: transparent !important;
+}
+
+.folded #wpcontent, .folded #wpfooter {
+  margin-left: 0px !important;
+}
+
+#wpcontent {
+    padding-left: 0px !important;
+}
+
+@media (max-width: 782px) {
+
+  .folded #adminmenu, .folded #adminmenu li.menu-top, .folded #adminmenuback, .folded #adminmenuwrap {
+      margin-left: 0px !important;
+      background-color: #23282d !important;
+  }
+
+}
